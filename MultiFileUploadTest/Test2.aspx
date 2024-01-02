@@ -298,43 +298,22 @@
 
 
             }
-            a.style.display = 'none'; // Arka plan rengini soluk gri yapıyoruz.
+            a.style.display = 'none';
 
             for (var i = 0; i < files.length; i++) {
                 dosyaToBase64(files[i], function (base64Data,name) {
-
-
-            //   alert(name);
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: apiUrl,
-                    //    contentType: "text/xml; charset=utf-8",
-                    //    data: CreateXML(base64Data),
-                    //    success: function (response) {
-                    //        alert("Dosya başarıyla yüklendi.");
-                    //    },
-                    //    error: function (xhr, status, error) {
-                    //        alert("Dosya yükleme sırasında bir hata oluştu.");
-                    //    }
-                    //});
-               //     var byteArray = base64ToByteArray(base64Data);
-                //    console.log(base64Data);
                     $.ajax({
                         type: "POST",
                         url: "Test2.aspx/CallAktarim",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({ data: base64Data, name: name}),
-                     //   data: CreateXML(base64Data),
                         success: function (response) {
-                            //alert(response.d);
                             if (response.d == "0") {
                                 SuccessUpload(name,"green");
 
                             } else {
                                 SuccessUpload(name, "red");
                             }
-                            
-                        //    alert("Dosya başarıyla yüklendi.");
                         },
                         error: function (xhr, status, error) {
                             alert("Dosya yükleme sırasında bir hata oluştu. : " + error);
@@ -350,10 +329,8 @@
 
           var hedefDiv = document.querySelector('div[data-fileid*="' + name + '"]');
 
-            // Hedef div'i bulduktan sonra CSS ekleyin
             if (hedefDiv) {
-                hedefDiv.style.backgroundColor =color; // Örnek bir stil eklemek için
-                // İstediğiniz ekstra CSS stillerini burada ekleyebilirsiniz
+                hedefDiv.style.backgroundColor =color; 
             }
         }
 
@@ -362,7 +339,7 @@
         function dosyaToBase64(file, callback) {
             var reader = new FileReader();
             reader.onload = function (event) {
-                var base64Data = event.target.result.split(',')[1]; // Base64 veriyi alın
+                var base64Data = event.target.result.split(',')[1]; 
                 var dosyaAdi = file.name;
                 callback(base64Data, dosyaAdi);
             };
@@ -376,35 +353,7 @@
             }
             return byteArray;
         }
-        function CreateXML(image) {
-            var soapRequest = '<?xml version="1.0" encoding="utf-8"?>';
-            soapRequest += '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">';
-            soapRequest += '  <soap:Body>';
-            soapRequest += '    <ATTACHSAVEFOLDER_NEW xmlns="http://tempuri.org/">';
-            soapRequest += '      <RequestAttachSave>';
-            soapRequest += '        <BILDIRIMNO>string</BILDIRIMNO>';
-            soapRequest += '        <ATTACH>' + image+'</ATTACH>';
-            soapRequest += '        <ATTACHFILESIZE>323</ATTACHFILESIZE>';
-            soapRequest += '        <ATTACHFILENAME>string</ATTACHFILENAME>';
-            soapRequest += '        <ATTACHFILECONTENTTYPE>string</ATTACHFILECONTENTTYPE>';
-            soapRequest += '        <RECORD_DATE>2010-05-24T18:13:00</RECORD_DATE>';
-            soapRequest += '        <ORJINALFILENAME>string</ORJINALFILENAME>';
-            soapRequest += '        <ISCONTROL>false</ISCONTROL>';
-            soapRequest += '        <ATTACHDESCRIPTION>string</ATTACHDESCRIPTION>';
-            soapRequest += '        <APPLICATIONNAME>TEKNODESK</APPLICATIONNAME>';
-            soapRequest += '        <CREATEDUSER>string</CREATEDUSER>';
-            soapRequest += '        <VENDORFILECODE>string</VENDORFILECODE>';
-            soapRequest += '        <BULKTRANSFER_CODE>string</BULKTRANSFER_CODE>';
-            soapRequest += '        <BULKTRANSFER>false</BULKTRANSFER>';
-            soapRequest += '        <BULKTRANSFER_URL>string</BULKTRANSFER_URL>';
-            soapRequest += '        <BASE64DATA></BASE64DATA>';
-            soapRequest += '      </RequestAttachSave>';
-            soapRequest += '    </ATTACHSAVEFOLDER_NEW>';
-            soapRequest += '  </soap:Body>';
-            soapRequest += '</soap:Envelope>';
 
-            return soapRequest;
-        }
 
 
 
