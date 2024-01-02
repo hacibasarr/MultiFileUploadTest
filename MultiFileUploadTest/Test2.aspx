@@ -25,7 +25,6 @@
             font-family: "Nunito", sans-serif;
         }
 
-        /*----------multiple-file-upload-----------*/
         .file-upload-contain {
             position: relative;
             margin-bottom: 40px;
